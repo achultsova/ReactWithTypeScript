@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './App.css';
+import axios from 'axios';
 
 const App = () => {
   const [state, setState] = useState({
@@ -19,22 +20,20 @@ const App = () => {
     const { days, city } = state;
     console.log(days, city);
     const url = "https://api.m3o.com/v1/weather/Forecast";
-    fetch(url + `?days=${days}&location=${city}`, {
-      method: "GET",
+    axios.get(url + `?days=${days}&location=${city}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer NWZlYzNjNTEtZjYyOC00YzZjLTk4MzYtYTk3ZTlkNWVkMDA1"
       }
     })
-      .then((resp) => resp.json())
-      .then(function (data) {
-        console.log("DATA: ", data);
+      .then((resp: any) => {
+        console.log("DATA: ", resp.data);
         setState({
           ...state,
-          value: data
+          value: resp.data
         });
       })
-      .catch(function (error) {
+      .catch((error: any) => {
         setState({
           ...state,
           value: error
