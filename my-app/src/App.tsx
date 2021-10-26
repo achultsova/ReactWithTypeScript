@@ -1,39 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import './App.css';
 import axios from 'axios';
+import { IResponse } from "./Interface/interfaces";
+import { Iforecast } from "./Interface/interfaces"; 
 
-const App = () => {
-  const [state, setState] = useState({
+const App: FC = (props) => {
+  const [state, setState] = useState ({
     value: "",
     days: "",
     city: ""
   });
 
-  const handleChangeEvent = (e: any) => {
+  const handleChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
       [e.target.name]: e.target.value
     });
   };
 
-  const clickRun = () => {
+  const clickRun = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { days, city } = state;
     console.log(days, city);
-    const url = "https://api.m3o.com/v1/weather/Forecast";
+    const url = "https://api.m3o.com/v1/weather/Forecasts";
     axios.get(url + `?days=${days}&location=${city}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer NWZlYzNjNTEtZjYyOC00YzZjLTk4MzYtYTk3ZTlkNWVkMDA1"
       }
     })
-      .then((resp: any) => {
+      .then((resp) => {
         console.log("DATA: ", resp.data);
         setState({
           ...state,
           value: resp.data
         });
       })
-      .catch((error: any) => {
+      .catch((error) => {
         setState({
           ...state,
           value: error
