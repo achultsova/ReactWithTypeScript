@@ -11,7 +11,7 @@ const App: FC = (props) => {
   });
 
   
-  const [response, setResponse] = useState<IResponse >({});
+  const [response, setResponse] = useState<IResponse >();
 
   const handleChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
