@@ -22,7 +22,7 @@ const App: FC = (props) => {
 
   const clickRun = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { days, city } = state;
-    console.log(days, city);
+    console.log(days, city); 
     const url = "https://api.m3o.com/v1/weather/Forecasts";
     axios.get<IResponse>(url + `?days=${days}&location=${city}`, {
       headers: {
