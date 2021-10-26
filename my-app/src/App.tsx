@@ -23,8 +23,7 @@ const App: FC = (props) => {
   const clickRun = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { days, city } = state;
     console.log(days, city); 
-    const url = "https://api.m3o.com/v1/weather/Forecasts";
-    axios.get<IResponse>(url + `?days=${days}&location=${city}`, {
+    axios.get<IResponse>(`https://api.m3o.com/v1/weather/Forecast?days=${days}&location=${city}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer NWZlYzNjNTEtZjYyOC00YzZjLTk4MzYtYTk3ZTlkNWVkMDA1"
@@ -59,10 +58,10 @@ const App: FC = (props) => {
             className="city"
             onChange={handleChangeEvent}
           />
-          <button value="run" className="btn" onClick={clickRun} />
+          <button type= "button" value="run" className="btn" onClick={clickRun}>Run</button> 
         </form>
       </div>
-      <div className="outputted">{JSON.stringify(state.value, null, '\t')} </div>
+      <div className="outputted">{JSON.stringify(response, null, '\t')} </div>
     </div>
   );
 };
