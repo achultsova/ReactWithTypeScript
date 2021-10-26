@@ -1,8 +1,8 @@
 export interface IResponse {
-    forecast: Iforecast[] 
-}
-
-export interface Iforecast {
+    forecast: Iforecast[];
+  }
+  
+  export interface Iforecast {
     date: string;
     max_temp_c: number;
     min_temp_c: number;
@@ -13,5 +13,4 @@ export interface Iforecast {
     icon_url: string;
     sunrise: string;
     sunset: string;
-}
-
+  }

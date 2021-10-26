@@ -2,7 +2,6 @@ import React, { useState, FC } from "react";
 import './App.css';
 import axios from 'axios';
 import { IResponse } from "./Interface/interfaces";
-import { Iforecast } from "./Interface/interfaces"; 
 
 const App: FC = (props) => {
   const [state, setState] = useState ({
@@ -10,6 +9,9 @@ const App: FC = (props) => {
     days: "",
     city: ""
   });
+
+  
+  const [response, setResponse] = useState<IResponse >({});
 
   const handleChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
@@ -22,18 +24,14 @@ const App: FC = (props) => {
     const { days, city } = state;
     console.log(days, city);
     const url = "https://api.m3o.com/v1/weather/Forecasts";
-    axios.get(url + `?days=${days}&location=${city}`, {
+    axios.get<IResponse>(url + `?days=${days}&location=${city}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer NWZlYzNjNTEtZjYyOC00YzZjLTk4MzYtYTk3ZTlkNWVkMDA1"
       }
     })
       .then((resp) => {
-        console.log("DATA: ", resp.data);
-        setState({
-          ...state,
-          value: resp.data
-        });
+        setResponse(resp.data);
       })
       .catch((error) => {
         setState({
@@ -61,7 +59,7 @@ const App: FC = (props) => {
             className="city"
             onChange={handleChangeEvent}
           />
-          <input type="button" value="run" className="btn" onClick={clickRun} />
+          <button value="run" className="btn" onClick={clickRun} />
         </form>
       </div>
       <div className="outputted">{JSON.stringify(state.value, null, '\t')} </div>
